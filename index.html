@@ -70,7 +70,7 @@
             <div class="control-item">
                 <label>缩放大小:</label>
                 <input type="range" id="scale" min="0.1" max="3" value="1" step="0.01">
-                <span id="scaleValue">1.0x</span>
+                <span id="scaleValue">1.0</span>
             </div>
             <div class="control-item">
                 <label>透明程度:</label>
@@ -138,7 +138,7 @@ function restoreDefault() {
     if (!currentBaseImg) return;
     
     userScale = 1;
-    controls.scale.element.value = baseScale*userScale;
+    controls.scale.element.value = userScale;
     controls.posX.element.value = 0;
     controls.posY.element.value = 0;
     controls.opacity.element.value = 0.8;
@@ -169,7 +169,7 @@ function composeImages() {
     iCtx.fillRect(0, 0, intermediateCanvas.width, intermediateCanvas.height);
 
     // Step 2: 绘制PRTS图片（完全替换该区域）
-    const scale = parseFloat(controls.scale.element.value);
+    const scale = baseScale * userScale;
     const posX = parseInt(controls.posX.element.value*canvas.width);
     const posY = parseInt(controls.posY.element.value*canvas.height);
 
@@ -210,7 +210,7 @@ document.getElementById('baseImage').addEventListener('change', async () => {
 
     baseScale = calculateBaseScale();
     userScale = 1;
-    controls.scale.element.value = baseScale*userScale;
+    controls.scale.element.value = userScale;
     updateControls();
     composeImages();
 });
