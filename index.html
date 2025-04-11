@@ -59,12 +59,12 @@
         <div class="controls">
             <div class="control-item">
                 <label>水平偏移:</label>
-                <input type="range" id="posX" min="-200" max="200" value="0" step="1">
+                <input type="range" id="posX" min="-1" max="1" value="0" step="0.01">
                 <span id="posXValue">0</span>
             </div>
             <div class="control-item">
                 <label>垂直偏移:</label>
-                <input type="range" id="posY" min="-200" max="200" value="0" step="1">
+                <input type="range" id="posY" min="-1" max="1" value="0" step="0.01">
                 <span id="posYValue">0</span>
             </div>
             <div class="control-item">
@@ -79,7 +79,7 @@
             </div>
             <div class="control-item">
                 <label>底图亮度:</label>
-                <input type="range" id="brightness" min="0" max="200" value="100" step="1">
+                <input type="range" id="brightness" min="0" max="200" value="100" step="0.01">
                 <span id="brightnessValue">100%</span>
             </div>
         </div>
@@ -162,14 +162,14 @@ function composeImages() {
     intermediateCanvas.height = canvas.height;
     const iCtx = intermediateCanvas.getContext('2d');
 
-    // Step 1: 绘制178透明度的黑色背景
-    iCtx.fillStyle = 'rgba(0, 0, 0, 0.77)'; // 178/255 ≈ 0.7
+    // Step 1: 绘制某透明度的黑色背景
+    iCtx.fillStyle = 'rgba(0, 0, 0, 0.77)';
     iCtx.fillRect(0, 0, intermediateCanvas.width, intermediateCanvas.height);
 
     // Step 2: 绘制PRTS图片（完全替换该区域）
     const scale = parseFloat(controls.scale.element.value);
-    const posX = parseInt(controls.posX.element.value);
-    const posY = parseInt(controls.posY.element.value);
+    const posX = parseInt(controls.posX.element.value*canvas.width);
+    const posY = parseInt(controls.posY.element.value*canvas.height);
 
     const imgWidth = overlayImg.width * scale;
     const imgHeight = overlayImg.height * scale;
