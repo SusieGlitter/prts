@@ -152,6 +152,11 @@ function bindControl(id) {
         if (id === 'scale') userScale = val;
         composeImages();
     });
+
+    // 输入框获得焦点时自动全选
+    control.number.addEventListener('focus', () => {
+        control.number.select();
+    });
 }
 
 for (let key in controls) {
